@@ -199,11 +199,6 @@ mark{background:#fde68a;color:inherit;border-radius:2px;padding:0 1px}
       <button class="clear-x" id="clearBtn">✕</button>
       <span class="ico">🔍</span>
     </div>
-    <div class="filter-row">
-      <button class="filter-btn active-all" onclick="setPriority('')">전체</button>
-      <button class="filter-btn" onclick="setPriority('필수')">⭐ 필수</button>
-      <button class="filter-btn" onclick="setPriority('권장')">📚 권장</button>
-    </div>
     <div class="stats" id="stats"></div>
     <div class="cards" id="cardGrid"></div>
     <div class="empty" id="emptyState" style="display:none">
@@ -236,14 +231,6 @@ mark{background:#fde68a;color:inherit;border-radius:2px;padding:0 1px}
     <div class="cat-selector">
       <label>카테고리 선택</label>
       <div class="cat-checkboxes" id="catCheckboxes"></div>
-    </div>
-    <div style="margin-bottom:16px">
-      <label style="font-size:.82rem;font-weight:600;color:var(--muted);display:block;margin-bottom:8px">우선순위 필터</label>
-      <div style="display:flex;gap:8px">
-        <button class="filter-btn active-all" id="studyPrioAll" onclick="setStudyPrio('')">전체</button>
-        <button class="filter-btn" id="studyPrioEss" onclick="setStudyPrio('필수')">⭐ 필수만</button>
-        <button class="filter-btn" id="studyPrioRec" onclick="setStudyPrio('권장')">📚 권장만</button>
-      </div>
     </div>
     <button class="start-btn" onclick="startStudy()">시작하기 →</button>
   </div>
@@ -368,14 +355,12 @@ function render() {
   stats.innerHTML=`<strong>${list.length}</strong>개 용어`;
   const q=searchQuery;
   grid.innerHTML=list.map(d=>{
-    const pClass=d.priority==='필수'?'essential':'recommended';
-    const pLabel=d.priority==='필수'?'⭐ 필수':'📚 권장';
     const sub=[
       d.korean?`<span class="sub-badge kr">${hl(d.korean,q)}</span>`:'',
       d.english?`<span class="sub-badge en">${hl(d.english,q)}</span>`:'',
     ].filter(Boolean).join('');
     return `<div class="card">
-      <div class="card-top"><div class="term">${hl(d.term,q)}</div><span class="priority-badge ${pClass}">${pLabel}</span></div>
+      <div class="card-top"><div class="term">${hl(d.term,q)}</div></div>
       ${sub?`<div class="sub-badges">${sub}</div>`:''}
       ${d.description?`<div class="desc">${hl(d.description,q)}</div>`:''}
       ${d.note&&d.note!='nan'&&d.note?`<div class="note-text">${d.note}</div>`:''}
