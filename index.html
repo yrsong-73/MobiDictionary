@@ -360,7 +360,7 @@ function render() {
       d.english?`<span class="sub-badge en">${hl(d.english,q)}</span>`:'',
     ].filter(Boolean).join('');
     return `<div class="card">
-      <div class="card-top"><div class="term">${hl(d.term,q)}</div></div>
+      <div class="card-top"><div class="term">${hl(d.term,q)}</div>${d.priority==='필수'?'<span class="priority-badge essential">⭐ 필수</span>':''}</div>
       ${sub?`<div class="sub-badges">${sub}</div>`:''}
       ${d.description?`<div class="desc">${hl(d.description,q)}</div>`:''}
       ${d.note&&d.note!='nan'&&d.note?`<div class="note-text">${d.note}</div>`:''}
